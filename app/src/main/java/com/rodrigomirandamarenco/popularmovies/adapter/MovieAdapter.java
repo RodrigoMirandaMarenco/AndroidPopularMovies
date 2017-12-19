@@ -1,23 +1,26 @@
 package com.rodrigomirandamarenco.popularmovies.adapter;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.rodrigomirandamarenco.popularmovies.R;
-
-import java.util.ArrayList;
+import com.rodrigomirandamarenco.popularmovies.model.Page;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by rodrigomiranda on 12/19/17.
+ * Adapter used to display Movie items.
  */
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder>{
 
-    private ArrayList<String> mItems;
+    private static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
+
+    private Page mPage;
 
     /**
      * This gets called when each new ViewHolder is created. This happens when the RecyclerView
@@ -34,26 +37,30 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     @Override
     public void onBindViewHolder(MovieAdapterViewHolder holder, int position) {
-        //TODO: Change image bitmap using Picasso
-        holder.mMoviePosterImageView.setBackgroundColor(Color.BLUE);
+        if (mPage != null && mPage.getResults() != null && !TextUtils.isEmpty(mPage.getResults().get(position).getBackdropPath())) {
+            Picasso.with(holder.mMoviePosterImageView.getContext())
+                    .load(String.format("%s%s/%s", IMAGE_BASE_URL, holder.mMoviePosterImageView.getContext().getString(R.string.poster_image_size), mPage.getResults().get(position).getBackdropPath()))
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .into(holder.mMoviePosterImageView);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mItems == null ? 0 : mItems.size();
+        return mPage != null && mPage.getResults() != null ? mPage.getResults().size() : 0;
     }
 
-    public void setMovieData(ArrayList<String> items) {
-        mItems = items;
+    public void setMovieData(Page page) {
+        mPage = page;
         notifyDataSetChanged();
     }
 
-    public class MovieAdapterViewHolder extends RecyclerView.ViewHolder{
+    class MovieAdapterViewHolder extends RecyclerView.ViewHolder{
         ImageView mMoviePosterImageView;
 
-        public MovieAdapterViewHolder(View itemView) {
+        MovieAdapterViewHolder(View itemView) {
             super(itemView);
-            mMoviePosterImageView = (ImageView) itemView.findViewById(R.id.iv_movie_poster);
+            mMoviePosterImageView = itemView.findViewById(R.id.iv_movie_poster);
         }
     }
 
