@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="min_height_movie_poster">192dp</dimen>
+</resources>
