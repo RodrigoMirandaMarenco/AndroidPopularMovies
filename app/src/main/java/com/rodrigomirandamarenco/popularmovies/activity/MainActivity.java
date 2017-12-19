@@ -14,13 +14,16 @@ import android.widget.TextView;
 import com.rodrigomirandamarenco.popularmovies.R;
 import com.rodrigomirandamarenco.popularmovies.adapter.MovieAdapter;
 import com.rodrigomirandamarenco.popularmovies.model.Page;
+import com.rodrigomirandamarenco.popularmovies.model.Result;
 import com.rodrigomirandamarenco.popularmovies.network.MovieApi;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.MovieAdapterOnClickHandler {
+    private static final String PAGE_KEY = "page_key";
+
     private static final String REQUEST_TYPE_POPULAR = "popular";
     private static final String REQUEST_TYPE_TOP_RATED = "top_rated";
 
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, GRID_SPAN_COUNT);
         mMoviesRecyclerView.setLayoutManager(gridLayoutManager);
         mMoviesRecyclerView.setHasFixedSize(true);
-        mMovieAdapter = new MovieAdapter();
+        mMovieAdapter = new MovieAdapter(this);
         mMoviesRecyclerView.setAdapter(mMovieAdapter);
 
         sMovieApi = new Retrofit.Builder()
@@ -52,7 +55,19 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build().create(MovieApi.class);
 
-        loadMovieData(REQUEST_TYPE_POPULAR);
+        if (savedInstanceState == null || !savedInstanceState.containsKey(PAGE_KEY)) {
+            loadMovieData(REQUEST_TYPE_POPULAR);
+        } else {
+            mMovieAdapter.setMovieData((Page) savedInstanceState.getParcelable(PAGE_KEY));
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (mMovieAdapter != null && mMovieAdapter.getPage() != null) {
+            outState.putParcelable(PAGE_KEY, mMovieAdapter.getPage());
+        }
+        super.onSaveInstanceState(outState);
     }
 
     private void loadMovieData(String requestType) {
@@ -109,4 +124,10 @@ public class MainActivity extends AppCompatActivity {
                     return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void onClick(Result result) {
+        startActivity(DetailActivity.newInstance(this, result));
+    }
+
 }

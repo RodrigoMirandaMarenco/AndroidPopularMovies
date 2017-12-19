@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.rodrigomirandamarenco.popularmovies.R;
 import com.rodrigomirandamarenco.popularmovies.model.Page;
+import com.rodrigomirandamarenco.popularmovies.model.Result;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -21,6 +22,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
     private static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
 
     private Page mPage;
+
+    private final MovieAdapterOnClickHandler mMovieAdapterOnClickHandler;
+
+    public Page getPage() {
+        return mPage;
+    }
+
+    public MovieAdapter(MovieAdapterOnClickHandler movieAdapterOnClickHandler) {
+        mMovieAdapterOnClickHandler = movieAdapterOnClickHandler;
+    }
+
+    /**
+     * This interface needs to be implemented to call onClick events
+     */
+    public interface MovieAdapterOnClickHandler {
+        void onClick(Result result);
+    }
 
     /**
      * This gets called when each new ViewHolder is created. This happens when the RecyclerView
@@ -55,12 +73,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
         notifyDataSetChanged();
     }
 
-    class MovieAdapterViewHolder extends RecyclerView.ViewHolder{
+    class MovieAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView mMoviePosterImageView;
 
         MovieAdapterViewHolder(View itemView) {
             super(itemView);
             mMoviePosterImageView = itemView.findViewById(R.id.iv_movie_poster);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mPage != null) {
+                mMovieAdapterOnClickHandler.onClick(mPage.getResults().get(getAdapterPosition()));
+            }
         }
     }
 
