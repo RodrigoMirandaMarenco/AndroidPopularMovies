@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.rodrigomirandamarenco.popularmovies.R;
 import com.rodrigomirandamarenco.popularmovies.model.Page;
 import com.rodrigomirandamarenco.popularmovies.model.Result;
+import com.rodrigomirandamarenco.popularmovies.util.MovieApiUtils;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -18,8 +19,6 @@ import com.squareup.picasso.Picasso;
  */
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder>{
-
-    private static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
 
     private Page mPage;
 
@@ -57,7 +56,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
     public void onBindViewHolder(MovieAdapterViewHolder holder, int position) {
         if (mPage != null && mPage.getResults() != null && !TextUtils.isEmpty(mPage.getResults().get(position).getBackdropPath())) {
             Picasso.with(holder.mMoviePosterImageView.getContext())
-                    .load(String.format("%s%s/%s", IMAGE_BASE_URL, holder.mMoviePosterImageView.getContext().getString(R.string.poster_image_size), mPage.getResults().get(position).getBackdropPath()))
+                    .load(MovieApiUtils.getImageUrl(holder.mMoviePosterImageView.getContext(), mPage.getResults().get(position).getPosterPath()))
                     .placeholder(R.drawable.ic_launcher_background)
                     .into(holder.mMoviePosterImageView);
         }
