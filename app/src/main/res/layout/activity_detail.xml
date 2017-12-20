@@ -17,32 +17,65 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="2017"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:paddingBottom="36dp"
+                android:paddingTop="36dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:background="#159588"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center_vertical"
+                tools:text="Movie Title"/>
 
-            <TextView
-                android:id="@+id/tv_release_date"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="2017"/>
+                android:padding="12dp">
 
-            <TextView
-                android:id="@+id/tv_average_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="8.1/10"/>
+                <ImageView
+                    android:id="@+id/iv_movie_poster"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
 
-            <ImageView
-                android:id="@+id/iv_movie_poster"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="12dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_release_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@android:color/secondary_text_light"
+                        tools:text="2017"/>
+
+                    <TextView
+                        android:id="@+id/tv_average_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/secondary_text_light"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        tools:text="8.1/10"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_synopsis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="12dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/secondary_text_light"
                 tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "/>
 
         </LinearLayout>

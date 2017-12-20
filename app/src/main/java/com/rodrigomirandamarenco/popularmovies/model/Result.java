@@ -7,6 +7,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,7 +59,7 @@ public class Result implements Parcelable {
     private String overview;
     @SerializedName("release_date")
     @Expose
-    private String releaseDate;
+    private Date releaseDate;
 
     public Integer getVoteCount() {
         return voteCount;
@@ -163,11 +165,17 @@ public class Result implements Parcelable {
         this.overview = overview;
     }
 
-    public String getReleaseDate() {
+    public Date getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public String getReleaseYear() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(releaseDate);
+        return String.valueOf(calendar.get(Calendar.YEAR));
+    }
+
+    public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -193,7 +201,7 @@ public class Result implements Parcelable {
         byte adultVal = in.readByte();
         adult = adultVal == 0x02 ? null : adultVal != 0x00;
         overview = in.readString();
-        releaseDate = in.readString();
+        releaseDate = new Date(in.readLong());
     }
 
     @Override
@@ -249,7 +257,7 @@ public class Result implements Parcelable {
             dest.writeByte((byte) (adult ? 0x01 : 0x00));
         }
         dest.writeString(overview);
-        dest.writeString(releaseDate);
+        dest.writeLong(releaseDate.getTime());
     }
 
     @SuppressWarnings("unused")

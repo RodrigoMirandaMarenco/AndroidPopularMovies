@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.rodrigomirandamarenco.popularmovies.R;
 import com.rodrigomirandamarenco.popularmovies.adapter.MovieAdapter;
 import com.rodrigomirandamarenco.popularmovies.model.Page;
@@ -50,9 +52,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         mMovieAdapter = new MovieAdapter(this);
         mMoviesRecyclerView.setAdapter(mMovieAdapter);
 
+        Gson gsonBuilder = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+
         sMovieApi = new Retrofit.Builder()
                 .baseUrl(MovieApi.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
                 .build().create(MovieApi.class);
 
         if (savedInstanceState == null || !savedInstanceState.containsKey(PAGE_KEY)) {

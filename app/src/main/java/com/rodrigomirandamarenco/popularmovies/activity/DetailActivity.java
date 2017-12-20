@@ -3,10 +3,7 @@ package com.rodrigomirandamarenco.popularmovies.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +12,8 @@ import com.rodrigomirandamarenco.popularmovies.R;
 import com.rodrigomirandamarenco.popularmovies.model.Result;
 import com.rodrigomirandamarenco.popularmovies.util.MovieApiUtils;
 import com.squareup.picasso.Picasso;
+
+import java.util.Locale;
 
 public class DetailActivity extends AppCompatActivity {
     private static final String EXTRA_MOVIE_RESULT = "extra_result";
@@ -50,8 +49,8 @@ public class DetailActivity extends AppCompatActivity {
             mResult = getIntent().getParcelableExtra(EXTRA_MOVIE_RESULT);
             if (mResult != null) {
                 mTitleTextView.setText(mResult.getTitle());
-                mReleaseDateTextView.setText(mResult.getReleaseDate());
-                mAverageRatingTextView.setText(String.valueOf(mResult.getVoteAverage()));
+                mReleaseDateTextView.setText(mResult.getReleaseYear());
+                mAverageRatingTextView.setText(String.format(Locale.getDefault(),"%.1f/10", mResult.getVoteAverage()));
                 mSynopsisTextView.setText(mResult.getOverview());
                 Picasso.with(this)
                         .load(MovieApiUtils.getImageUrl(this, mResult.getPosterPath()))
