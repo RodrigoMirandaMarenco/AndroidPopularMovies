@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mMoviesRecyclerView = findViewById(R.id.recyclerview_movies);
+        mMoviesRecyclerView = findViewById(R.id.recycler_view_movies);
         mErrorMessageTextView = findViewById(R.id.tv_error_message_display);
 
         mProgressBar = findViewById(R.id.pb_loading_indicator);
@@ -52,13 +52,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         mMovieAdapter = new MovieAdapter(this);
         mMoviesRecyclerView.setAdapter(mMovieAdapter);
 
-        Gson gsonBuilder = new GsonBuilder()
+        Gson gSonBuilder = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd")
                 .create();
 
         sMovieApi = new Retrofit.Builder()
                 .baseUrl(MovieApi.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
+                .addConverterFactory(GsonConverterFactory.create(gSonBuilder))
                 .build().create(MovieApi.class);
 
         if (savedInstanceState == null || !savedInstanceState.containsKey(PAGE_KEY)) {

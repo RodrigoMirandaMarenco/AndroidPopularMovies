@@ -6,7 +6,7 @@
     tools:context="com.rodrigomirandamarenco.popularmovies.activity.MainActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview_movies"
+        android:id="@+id/recycler_view_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
