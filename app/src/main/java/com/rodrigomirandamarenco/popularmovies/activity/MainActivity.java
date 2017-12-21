@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.rodrigomirandamarenco.popularmovies.BuildConfig;
 import com.rodrigomirandamarenco.popularmovies.R;
 import com.rodrigomirandamarenco.popularmovies.adapter.MovieAdapter;
 import com.rodrigomirandamarenco.popularmovies.model.Page;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
     private void loadMovieData(String requestType) {
         mProgressBar.setVisibility(View.VISIBLE);
-        final retrofit2.Call<Page> call = sMovieApi.getTopRatedMovieListPage(requestType, getString(R.string.themoviedb_api_key));
+        final retrofit2.Call<Page> call = sMovieApi.getTopRatedMovieListPage(requestType, BuildConfig.THE_MOVIE_DB_API_KEY);
         call.enqueue(new retrofit2.Callback<Page>() {
             @Override
             public void onResponse(@NonNull Call<Page> call, @NonNull retrofit2.Response<Page> response) {
