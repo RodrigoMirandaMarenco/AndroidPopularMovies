@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="error_message">An error has occurred, please try again…</string>
+    <string name="poster_image_size">w500</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="popular">Popular</string>
+    <string name="movie_detail">Movie Detail</string>
+    <!--TODO: Uncomment the next line-->
+    <!--<string name="themoviedb_api_key">YOUR_API_KEY_HERE</string>-->
+</resources>
