@@ -16,6 +16,7 @@ import java.util.List;
  * 'The Movie DB API' Result Model Class
  */
 
+@SuppressWarnings("unused")
 public class Result implements Parcelable {
 
     @SerializedName("vote_count")
@@ -169,6 +170,9 @@ public class Result implements Parcelable {
         return releaseDate;
     }
 
+    /**
+     * Returns the year of the movie release date
+     */
     public String getReleaseYear() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(releaseDate);
@@ -180,7 +184,7 @@ public class Result implements Parcelable {
     }
 
 
-    protected Result(Parcel in) {
+    private Result(Parcel in) {
         voteCount = in.readByte() == 0x00 ? null : in.readInt();
         id = in.readByte() == 0x00 ? null : in.readInt();
         byte videoVal = in.readByte();
@@ -192,7 +196,7 @@ public class Result implements Parcelable {
         originalLanguage = in.readString();
         originalTitle = in.readString();
         if (in.readByte() == 0x01) {
-            genreIds = new ArrayList<Integer>();
+            genreIds = new ArrayList<>();
             in.readList(genreIds, Integer.class.getClassLoader());
         } else {
             genreIds = null;

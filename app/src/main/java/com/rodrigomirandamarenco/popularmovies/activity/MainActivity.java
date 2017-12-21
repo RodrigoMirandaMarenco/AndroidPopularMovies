@@ -126,8 +126,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
                 loadMovieData(REQUEST_TYPE_TOP_RATED);
                 return true;
 
-                default:
-                    return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

@@ -14,6 +14,7 @@ import java.util.List;
  * 'The Movie DB API' Page Model Class
  */
 
+@SuppressWarnings("unused")
 public class Page implements Parcelable {
 
     @SerializedName("page")
@@ -62,12 +63,12 @@ public class Page implements Parcelable {
     }
 
 
-    protected Page(Parcel in) {
+    private Page(Parcel in) {
         page = in.readByte() == 0x00 ? null : in.readInt();
         totalResults = in.readByte() == 0x00 ? null : in.readInt();
         totalPages = in.readByte() == 0x00 ? null : in.readInt();
         if (in.readByte() == 0x01) {
-            results = new ArrayList<Result>();
+            results = new ArrayList<>();
             in.readList(results, Result.class.getClassLoader());
         } else {
             results = null;

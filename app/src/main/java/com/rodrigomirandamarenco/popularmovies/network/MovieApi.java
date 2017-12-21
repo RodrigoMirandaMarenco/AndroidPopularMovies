@@ -9,6 +9,7 @@ import retrofit2.http.Query;
 
 /**
  * Created by rodrigomiranda on 12/19/17.
+ * API Interface using Retrofit annotations.
  */
 
 public interface MovieApi {

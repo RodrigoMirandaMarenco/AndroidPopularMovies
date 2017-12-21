@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
  * Adapter used to display Movie items.
  */
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder>{
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder> {
 
     private Page mPage;
 
@@ -43,8 +43,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
      * This gets called when each new ViewHolder is created. This happens when the RecyclerView
      * is laid out. Enough ViewHolders will be created to fill the screen and allow for scrolling.
      *
-     * @param parent The ViewGroup that these ViewHolders are contained within.
-     * @param viewType  Unused until different viewTypes are required.
+     * @param parent   The ViewGroup that these ViewHolders are contained within.
+     * @param viewType Unused until different viewTypes are required.
      * @return A new MovieAdapterViewHolder that holds the View for each list item
      */
     @Override
@@ -72,8 +72,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
         notifyDataSetChanged();
     }
 
-    class MovieAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        ImageView mMoviePosterImageView;
+    class MovieAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        final ImageView mMoviePosterImageView;
 
         MovieAdapterViewHolder(View itemView) {
             super(itemView);

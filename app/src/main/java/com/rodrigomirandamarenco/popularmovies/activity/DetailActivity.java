@@ -18,13 +18,6 @@ import java.util.Locale;
 public class DetailActivity extends AppCompatActivity {
     private static final String EXTRA_MOVIE_RESULT = "extra_result";
 
-    private Result mResult;
-    private TextView mTitleTextView;
-    private TextView mReleaseDateTextView;
-    private TextView mAverageRatingTextView;
-    private TextView mSynopsisTextView;
-    private ImageView mMoviePosterImageView;
-
     public static Intent newInstance(Context context, Result result) {
         Intent detailIntent = new Intent(context, DetailActivity.class);
         detailIntent.putExtra(EXTRA_MOVIE_RESULT, result);
@@ -35,27 +28,27 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        mTitleTextView = findViewById(R.id.tv_title);
-        mReleaseDateTextView = findViewById(R.id.tv_release_date);
-        mAverageRatingTextView = findViewById(R.id.tv_average_rating);
-        mSynopsisTextView = findViewById(R.id.tv_synopsis);
-        mMoviePosterImageView = findViewById(R.id.iv_movie_poster);
+        TextView titleTextView = findViewById(R.id.tv_title);
+        TextView releaseDateTextView = findViewById(R.id.tv_release_date);
+        TextView averageRatingTextView = findViewById(R.id.tv_average_rating);
+        TextView synopsisTextView = findViewById(R.id.tv_synopsis);
+        ImageView moviePosterImageView = findViewById(R.id.iv_movie_poster);
 
         if (getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         if (getIntent() != null && getIntent().hasExtra(EXTRA_MOVIE_RESULT)) {
-            mResult = getIntent().getParcelableExtra(EXTRA_MOVIE_RESULT);
-            if (mResult != null) {
-                mTitleTextView.setText(mResult.getTitle());
-                mReleaseDateTextView.setText(mResult.getReleaseYear());
-                mAverageRatingTextView.setText(String.format(Locale.getDefault(),"%.1f/10", mResult.getVoteAverage()));
-                mSynopsisTextView.setText(mResult.getOverview());
+            Result result = getIntent().getParcelableExtra(EXTRA_MOVIE_RESULT);
+            if (result != null) {
+                titleTextView.setText(result.getTitle());
+                releaseDateTextView.setText(result.getReleaseYear());
+                averageRatingTextView.setText(String.format(Locale.getDefault(), "%.1f/10", result.getVoteAverage()));
+                synopsisTextView.setText(result.getOverview());
                 Picasso.with(this)
-                        .load(MovieApiUtils.getImageUrl(this, mResult.getPosterPath()))
+                        .load(MovieApiUtils.getImageUrl(this, result.getPosterPath()))
                         .placeholder(R.drawable.ic_launcher_background)
-                        .into(mMoviePosterImageView);
+                        .into(moviePosterImageView);
             }
         }
     }
